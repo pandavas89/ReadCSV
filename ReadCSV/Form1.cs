@@ -73,12 +73,9 @@ namespace ReadCSV
                     sNoIdx = i;
                 }
             }
-
             //
-
             while (!sr.EndOfStream)
             {
-                //int k = 0;
                 // 한 줄씩 읽어온다.
                 string line = sr.ReadLine();
                 // , 기준으로 분리
@@ -109,11 +106,11 @@ namespace ReadCSV
                 d_mf.Add(sex);
 
             }
-            MessageBox.Show("while done");
             //
             var Sql_Conn = new Sql_Conn();
             Sql_Conn.AddData(d_name, d_pno, d_mf);
-
+            //
+            MessageBox.Show("while done");
         }
 
         private void Form1_Load(object sender, EventArgs e)
