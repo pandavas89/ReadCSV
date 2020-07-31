@@ -1,7 +1,6 @@
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\bin\Debug\ReadCSV.exe.config
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\bin\Debug\ReadCSV.exe
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\bin\Debug\ReadCSV.pdb
-C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csprojAssemblyReference.cache
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.Form1.resources
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.Properties.Resources.resources
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csproj.GenerateResource.cache

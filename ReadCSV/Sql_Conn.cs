@@ -83,7 +83,7 @@ namespace ReadCSV
         }
 
 
-        public void AddData(ArrayList d_name, ArrayList d_pno, ArrayList d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
         {
             //
             string queryString = " INSERT INTO T_USER";

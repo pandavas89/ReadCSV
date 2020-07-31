@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ReadCSV"
   ],
+  "SelectedNode": "\\ReadCSV\\ReadCSV.sln",
   "PreviewInSolutionExplorer": false
 }

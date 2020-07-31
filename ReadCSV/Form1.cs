@@ -42,11 +42,11 @@ namespace ReadCSV
 
         public void DB_btn(object sender, EventArgs e)
         {
-            string[,] keep = new string[0, 0];
+            //string[,] keep = new string[0, 0];
 
-            ArrayList d_name = new ArrayList();
-            ArrayList d_pno = new ArrayList();
-            ArrayList d_mf = new ArrayList();
+            List<string> d_name = new List<string>();
+            List<string> d_pno = new List<string>();
+            List<string> d_mf = new List<string>();
 
 
             StreamReader sr = new StreamReader(file_path);
