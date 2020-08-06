@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,25 +14,54 @@ namespace ReadCSV
     class Sql_Conn
     {
 
+       
 
         // SQL_DB User ID Password
-        string strConn = "Data Source=DEV-SA-PC;Initial Catalog=STUDY_ROOM;"
-                            + "User ID=sa;Password=jack3081$$;";
+        // textbox 입력으로 수정할 수 있도록 개선
+        // 최종적으로는 MS SQL DB를 거치지 않고 바이오스타만으로 업데이트 처리 가능하도록
+        /*string strConn = "Data Source=192.168.0.4;Initial Catalog=STUDY_ROOM;"
+                            + "User ID=sa;Password=jack3081$$;";*/
+
+        string strConn = "";
 
         SqlConnection Conn = new SqlConnection();
+
+
+
+        public void SetConnection()
+        {
+            var curDir = Directory.GetCurrentDirectory();
+            System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini");
+            string line;
+            Dictionary<string, string> configData = new Dictionary<string, string>();
+
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] data = line.Split(':');
+                configData.Add(data[0].Trim(), data[1].Trim());
+            }
+            strConn = "Data Source=" + configData["Data Source"] + ";";
+            strConn = "Initial Catalog=" + configData["Initial Catalog"] + ";";
+            strConn = "USER ID=" + configData["USER ID"] + ";";
+            strConn = "Password" + configData["Password"] + ";";
+        }
+
+
+
+
+
 
         public void Open()
         {
 
             if (Conn.State == System.Data.ConnectionState.Closed)
             {
-                Conn.ConnectionString = strConn;
 
                 try
                 {
-                    //MessageBox.Show("DB Open!");
-                    Conn.Open(); // 
-
+                    SetConnection();
+                    Conn.ConnectionString = strConn;
+                    Conn.Open();
                 }
                 catch (InvalidCastException e)
                 {
@@ -39,6 +70,7 @@ namespace ReadCSV
             }
         }
 
+        //
         public System.Data.ConnectionState State()
         {
             return Conn.State;
@@ -50,6 +82,7 @@ namespace ReadCSV
             Conn.Close();
         }
 
+        //
         public SqlDataReader SCom(string QString)
         {
             Open();
@@ -66,6 +99,7 @@ namespace ReadCSV
             }
         }
 
+        //
         public int ECom(string QString)
         {
             int rint = 0;
@@ -82,10 +116,11 @@ namespace ReadCSV
             return rint;
         }
 
-
+        //
         public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
         {
             //
+            // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
             string queryString = " INSERT INTO T_USER";
             queryString += " (NAME ";
             queryString += " ,PNO ";
