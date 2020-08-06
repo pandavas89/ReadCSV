@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,21 +18,50 @@ namespace ReadCSV
         public Sql_Conn_frm()
         {
             InitializeComponent();
-
-            ReadIni();
         }
 
-        [DllImport("KERNEL32.DLL")] 
-        private static extern bool WritePrivateProfileString(string lpAppName, string lpKeyName, string lpString, string lpFileName);
-        [DllImport("KERNEL32.DLL")] 
-        private static extern uint GetPrivateProfileInt(string lpAppName, string lpKeyName, int nDefault, string lpFileName);
-        [DllImport("kernel32.dll")] 
-        static extern uint GetPrivateProfileString(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
-
-        
-        //string[,] iniValue = new string[2, 3];
-
         // Read
+        public async void ReadIni(object sender, EventArgs e)
+        {
+            /*
+                        try
+                        {
+                            using (var sr = new StreamReader("/sql_config.ini"))
+                            {
+                                // 선언 불가
+                                ResultBlock.Text = await sr.ReadToEndAsync();
+                            }
+                        }*/
+            try
+            {
+                var curDir = Directory.GetCurrentDirectory();
+                System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini");
+                // ResultBlock.Text = await sr.ReadToEndAsync(); // 비동기식 예외 처리
+                string line;
+                Dictionary<string, string> configData = new Dictionary<string, string>();
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] data = line.Split(':');
+                    configData.Add(data[0].Trim(), data[1].Trim());
+                }
+
+                textBox1.Text = configData["Data Source"];
+                textBox2.Text = configData["Initial Catalog"];
+                textBox3.Text = configData["USER ID"];
+                textBox4.Text = configData["Password"];
+                
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+
+        /*// Read
         public void ReadIni()
         {
             var curDir = Directory.GetCurrentDirectory();
@@ -50,7 +80,7 @@ namespace ReadCSV
             textBox3.Text = configData["USER ID"];
             textBox4.Text = configData["Password"];
             
-        }
+        }*/
 
         // Write
         private void save_btn_Click(object sender, EventArgs e)
@@ -69,14 +99,22 @@ namespace ReadCSV
             System.IO.StreamWriter file = new System.IO.StreamWriter(curDir + "/sql_config.ini");
             string pathFile = file.ToString();
 
-            Dictionary<string, string> configData = new Dictionary<string, string>();
+            //Dictionary<string, string> configData = new Dictionary<string, string>();
 
-            string[] lines = { "Data Source :" + textBox1.Text,
-                               "Initial Catalog :" + textBox2.Text,
-                               "USER ID :" + textBox3.Text,
-                               "Password :" + textBox4.Text};
+            /*string[] lines = { "Data Source :" + textBox1.Text.ToString(),
+                               "Initial Catalog :" + textBox2.Text.ToString(),
+                               "USER ID :" + textBox3.Text.ToString(),
+                               "Password :" + textBox4.Text.ToString() };*/
+            string lines = "Data Source :" + textBox1.Text.ToString()
+                            + Environment.NewLine +
+                           "Initial Catalog :" + textBox2.Text.ToString()
+                            + Environment.NewLine + 
+                           "USER ID :" + textBox3.Text.ToString()
+                            + Environment.NewLine + 
+                           "Password :" + textBox4.Text.ToString() ;
 
-            File.WriteAllLines(Path.Combine(pathFile, "sql_config.ini"), lines);
+            File.AppendAllText(Path.Combine(pathFile, "sql_config.ini"), lines);
+            //File.WriteAllLines();
 
             this.Close();
         }

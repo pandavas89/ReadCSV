@@ -182,8 +182,9 @@ namespace ReadCSV
 
         private void SqlConn_btn_click(object sender, EventArgs e)
         {
-            Sql_Conn_frm newFrorm = new Sql_Conn_frm();
-            newFrorm.Show();
+            Sql_Conn_frm newForm = new Sql_Conn_frm();
+            newForm.ReadIni(sender, e);
+            newForm.Show();
         }
 
     }
