@@ -13,9 +13,6 @@ namespace ReadCSV
 {
     class Sql_Conn
     {
-
-       
-
         // SQL_DB User ID Password
         // textbox 입력으로 수정할 수 있도록 개선
         // 최종적으로는 MS SQL DB를 거치지 않고 바이오스타만으로 업데이트 처리 가능하도록
@@ -26,8 +23,7 @@ namespace ReadCSV
 
         SqlConnection Conn = new SqlConnection();
 
-
-
+        //
         public void SetConnection()
         {
             var curDir = Directory.GetCurrentDirectory();
@@ -50,10 +46,9 @@ namespace ReadCSV
 
 
 
-
+        //
         public void Open()
         {
-
             if (Conn.State == System.Data.ConnectionState.Closed)
             {
 
@@ -123,11 +118,7 @@ namespace ReadCSV
             //
             // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
             //string queryString = " INSERT INTO T_USER";
-
-            /*string queryString = " IF NOT EXISTS ( ";
-            queryString += " SELECT NAME, PNO, MF ";
-            queryString += " FROM T_USER ";*/
-
+                       
             string queryString = "";
 
             for (int i = 0; i < d_name.Count; i++)
@@ -135,7 +126,7 @@ namespace ReadCSV
                 queryString = " IF NOT EXISTS ( ";
                 queryString += " SELECT NAME, PNO, MF ";
                 queryString += " FROM T_USER ";
-                queryString += String.Format(" WHERE PNO = {0} ", d_pno[i]);
+                queryString += String.Format(" WHERE PNO = '{0}' ", d_pno[i]);
                 queryString += " INSERT INTO T_USER";
                 queryString += " ( NAME, PNO, MF ) ";
                 queryString += " VALUES ";
@@ -145,58 +136,67 @@ namespace ReadCSV
                 queryString += " ELSE ";
                 queryString += " BEGIN ";
                 queryString += " UPDATE T_USER ";
-                queryString += String.Format(" SET NAME = {0}, PNO = {1}, MF = {2}", d_name[i], d_pno[i], d_mf[i]);
-                queryString += String.Format(" WHERE PNO = {0}", d_pno[i]);
+                queryString += String.Format(" SET NAME = '{0}', PNO = '{1}', MF = '{2}'", d_name[i], d_pno[i], d_mf[i]);
+                queryString += String.Format(" WHERE PNO = '{0}'", d_pno[i]);
                 queryString += " END ";
             }
 
-            queryString = queryString.Substring(0, queryString.Length - 1);
+            //queryString = queryString.Substring(0, queryString.Length - 1);
 
             MessageBox.Show(queryString);
-
-            /*queryString += " ('" + PNOtext + "'";
-            queryString += " ,'" + NAMEtext + "'";
-            queryString += " ,'" + FMCB + "')";*/
-
-
+                      
             ECom(queryString);
 
             MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
         }
 
+        /* //
+       public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+       {
+           //
+           // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
+           string queryString = " INSERT INTO T_USER";
+           queryString += " (NAME ";
+           queryString += " ,PNO ";
+           queryString += " ,MF) ";
+           queryString += " VALUES ";
+
+           for (int i = 0; i < d_name.Count; i++)
+           {
+               queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
+           }
+
+           queryString = queryString.Substring(0, queryString.Length - 1);
+
+           MessageBox.Show(queryString);
+
+           *//*queryString += " ('" + PNOtext + "'";
+           queryString += " ,'" + NAMEtext + "'";
+           queryString += " ,'" + FMCB + "')";*//*
+
+
+           ECom(queryString);
+
+           MessageBox.Show("사용자 정보가 추가되었습니다.!");
+
+       }*/
 
 
 
-       /* //
-        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+
+        //월별 데이터의 경우 지난달 사용자는 한 달을 늘리고 신규/중단 후 재사용자는 새로운 구간을 설정해 줄 것
+        // YYYY, MM, PNO, SNO, CNO
+        // 지난달 MM 사용자는 한 달 늘리고 / new 사용자는 1일로 시작
+
+        public void MonthRenewal()
         {
-            //
-            // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
-            string queryString = " INSERT INTO T_USER";
-            queryString += " (NAME ";
-            queryString += " ,PNO ";
-            queryString += " ,MF) ";
-            queryString += " VALUES ";
 
-            for (int i = 0; i < d_name.Count; i++)
-            {
-                queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
-            }
-
-            queryString = queryString.Substring(0, queryString.Length - 1);
-
-            MessageBox.Show(queryString);
-
-            *//*queryString += " ('" + PNOtext + "'";
-            queryString += " ,'" + NAMEtext + "'";
-            queryString += " ,'" + FMCB + "')";*//*
+        }
 
 
-            ECom(queryString);
 
-            MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
-        }*/
+
     }
 }
