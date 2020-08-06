@@ -43,7 +43,7 @@ namespace ReadCSV
             strConn = "Data Source=" + configData["Data Source"] + ";";
             strConn = "Initial Catalog=" + configData["Initial Catalog"] + ";";
             strConn = "USER ID=" + configData["USER ID"] + ";";
-            strConn = "Password" + configData["Password"] + ";";
+            strConn = "Password=" + configData["Password"] + ";";
         }
 
 

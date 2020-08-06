@@ -21,46 +21,25 @@ namespace ReadCSV
             InitializeComponent();
         }
 
-        static async Task Main()
-        {
-            await ReadAndDisplayFilesAsync();
-        }
-
-        static async Task ReadAndDisplayFilesAsync()
-        {
-            String filename = "sql_config.ini";
-            Char[] buffer;
-
-            using (var sr = new StreamReader(filename))
-            {
-                buffer = new Char[(int)sr.BaseStream.Length];
-                await sr.ReadAsync(buffer, 0, (int)sr.BaseStream.Length);
-            }
-
-            Console.WriteLine(new String(buffer));
-        }
-
-
         // Read
-        public void ReadIni(object sender, EventArgs e)
+        public void ReadIni()
         {
             var curDir = Directory.GetCurrentDirectory();
-            System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini");
-            string line;
             Dictionary<string, string> configData = new Dictionary<string, string>();
-
-            while ((line = file.ReadLine()) != null)
+            using (System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini")) 
             {
-                string[] data = line.Split(':');
-                configData.Add(data[0].Trim(), data[1].Trim());
+                string line;
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] data = line.Split(':');
+                    configData.Add(data[0].Trim(), data[1].Trim());
+                }
             }
 
             textBox1.Text = configData["Data Source"];
             textBox2.Text = configData["Initial Catalog"];
             //textBox3.Text = configData["USER ID"];
             //textBox4.Text = configData["Password"];
-
-            Show();
 
         }
 
@@ -73,30 +52,6 @@ namespace ReadCSV
                 await Destinaion.WriteAsync(buffer, 0, numRead);
             }
         }
-
-
-
-        /*// Read
-        public void ReadIni()
-        {
-            var curDir = Directory.GetCurrentDirectory();
-            System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini");
-            string line;
-            Dictionary<string, string> configData = new Dictionary<string, string>();
-
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] data = line.Split(':');
-                configData.Add(data[0].Trim(), data[1].Trim());
-            }
-
-            textBox1.Text = configData["Data Source"];
-            textBox2.Text = configData["Initial Catalog"];
-            textBox3.Text = configData["USER ID"];
-            textBox4.Text = configData["Password"];
-            
-        }*/
-
 
         // Write
         private void save_btn_Click(object sender, EventArgs e)
@@ -122,30 +77,8 @@ namespace ReadCSV
                 MessageBox.Show(ex.Message);
             }
 
-
-            //File.AppendText(Path.Combine(pathFile, "sql_config.ini"), configData);
-            //File.WriteAllLines();
-
             this.Close();
         }
-
-/*
-      
-        private Boolean setIni(string IpAppName, string IpKeyName, string IpValue, string filePath)
-        {
-            try
-            {
-                string inifile = "/sql_config.ini"; //Path + File 
-                WritePrivateProfileString(IpAppName, IpKeyName, IpValue, inifile); 
-                return true; 
-             } 
-            catch (Exception ex) 
-             { 
-                    Console.WriteLine(ex.ToString()); return false; 
-             }
-            
-        }*/
-
 
 
     }

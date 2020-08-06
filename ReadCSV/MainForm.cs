@@ -187,8 +187,8 @@ namespace ReadCSV
 
             Sql_Conn sqlConn = new Sql_Conn();
 
-            int totalLines = userDataDGV.Rows.Count;
-            for (int i = 1; i < totalLines; i++)
+            int totalLines = userDataDGV.Rows.Count - 1;
+            for (int i = 0; i < totalLines; i++)
             {
                 var targetRow = userDataDGV.Rows[i].Cells;
                 string name = targetRow[0].Value.ToString();
@@ -207,7 +207,8 @@ namespace ReadCSV
         private void SqlConn_btn_click(object sender, EventArgs e)
         {
             Sql_Conn_frm newForm = new Sql_Conn_frm();
-            newForm.ReadIni(sender, e);
+            newForm.ReadIni();
+            newForm.Show();
         }
 
     }
