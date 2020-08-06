@@ -116,7 +116,59 @@ namespace ReadCSV
             return rint;
         }
 
+
         //
+        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+        {
+            //
+            // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
+            //string queryString = " INSERT INTO T_USER";
+
+            /*string queryString = " IF NOT EXISTS ( ";
+            queryString += " SELECT NAME, PNO, MF ";
+            queryString += " FROM T_USER ";*/
+
+            string queryString = "";
+
+            for (int i = 0; i < d_name.Count; i++)
+            {
+                queryString = " IF NOT EXISTS ( ";
+                queryString += " SELECT NAME, PNO, MF ";
+                queryString += " FROM T_USER ";
+                queryString += String.Format(" WHERE PNO = {0} ", d_pno[i]);
+                queryString += " INSERT INTO T_USER";
+                queryString += " ( NAME, PNO, MF ) ";
+                queryString += " VALUES ";
+                queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
+
+                queryString += " END ";
+                queryString += " ELSE ";
+                queryString += " BEGIN ";
+                queryString += " UPDATE T_USER ";
+                queryString += String.Format(" SET NAME = {0}, PNO = {1}, MF = {2}", d_name[i], d_pno[i], d_mf[i]);
+                queryString += String.Format(" WHERE PNO = {0}", d_pno[i]);
+                queryString += " END ";
+            }
+
+            queryString = queryString.Substring(0, queryString.Length - 1);
+
+            MessageBox.Show(queryString);
+
+            /*queryString += " ('" + PNOtext + "'";
+            queryString += " ,'" + NAMEtext + "'";
+            queryString += " ,'" + FMCB + "')";*/
+
+
+            //ECom(queryString);
+
+            MessageBox.Show("사용자 정보가 추가되었습니다.!");
+
+        }
+
+
+
+
+       /* //
         public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
         {
             //
@@ -136,15 +188,15 @@ namespace ReadCSV
 
             MessageBox.Show(queryString);
 
-            /*queryString += " ('" + PNOtext + "'";
+            *//*queryString += " ('" + PNOtext + "'";
             queryString += " ,'" + NAMEtext + "'";
-            queryString += " ,'" + FMCB + "')";*/
+            queryString += " ,'" + FMCB + "')";*//*
 
 
             ECom(queryString);
 
             MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
-        }
+        }*/
     }
 }
