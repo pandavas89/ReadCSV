@@ -159,7 +159,7 @@ namespace ReadCSV
             queryString += " ,'" + FMCB + "')";*/
 
 
-            //ECom(queryString);
+            ECom(queryString);
 
             MessageBox.Show("사용자 정보가 추가되었습니다.!");
 

@@ -50,6 +50,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.extractBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.csvDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.firstRowNUD)).BeginInit();
@@ -106,10 +107,10 @@
             this.columnPNo,
             this.columnSex,
             this.columnSeatNo});
-            this.userDataDGV.Location = new System.Drawing.Point(1039, 12);
+            this.userDataDGV.Location = new System.Drawing.Point(1039, 40);
             this.userDataDGV.Name = "userDataDGV";
             this.userDataDGV.RowTemplate.Height = 23;
-            this.userDataDGV.Size = new System.Drawing.Size(440, 420);
+            this.userDataDGV.Size = new System.Drawing.Size(440, 404);
             this.userDataDGV.TabIndex = 3;
             // 
             // columnName
@@ -239,7 +240,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1040, 439);
+            this.button1.Location = new System.Drawing.Point(1404, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 16;
@@ -247,11 +248,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.SqlConn_btn_click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1323, 11);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "DB_Add";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.DB_Add_btn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1523, 483);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.extractBtn);
             this.Controls.Add(this.colSeatAndSex);
@@ -307,6 +319,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button extractBtn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

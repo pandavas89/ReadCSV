@@ -30,12 +30,8 @@
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.save_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,20 +48,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(182, 21);
             this.textBox2.TabIndex = 0;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(106, 67);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(182, 21);
-            this.textBox3.TabIndex = 0;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(106, 94);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(182, 21);
-            this.textBox4.TabIndex = 0;
             // 
             // label1
             // 
@@ -85,27 +67,9 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Initial Catalog";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 70);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 12);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "USER ID";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Password";
-            // 
             // save_btn
             // 
-            this.save_btn.Location = new System.Drawing.Point(213, 121);
+            this.save_btn.Location = new System.Drawing.Point(213, 67);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(75, 23);
             this.save_btn.TabIndex = 2;
@@ -117,14 +81,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 148);
+            this.ClientSize = new System.Drawing.Size(300, 100);
             this.Controls.Add(this.save_btn);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Name = "Sql_Conn_frm";
@@ -138,12 +98,8 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button save_btn;
     }
 }

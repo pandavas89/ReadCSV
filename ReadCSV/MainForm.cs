@@ -179,12 +179,35 @@ namespace ReadCSV
             }
         }
 
+        private void DB_Add_btn_Click(object sender, EventArgs e)
+        {
+            List<string> d_name = new List<string>();
+            List< string > d_pno = new List<string>();
+            List<string> d_mf = new List<string>();
+
+            Sql_Conn sqlConn = new Sql_Conn();
+
+            int totalLines = userDataDGV.Rows.Count;
+            for (int i = 1; i < totalLines; i++)
+            {
+                var targetRow = userDataDGV.Rows[i].Cells;
+                string name = targetRow[0].Value.ToString();
+                string pNo = targetRow[1].Value.ToString();
+                string sex = targetRow[2].Value.ToString();
+
+                d_name.Add(name);
+                d_pno.Add(pNo);
+                d_mf.Add(sex);
+            }
+            
+            sqlConn.AddData(d_name,  d_pno, d_mf);
+        }
+
 
         private void SqlConn_btn_click(object sender, EventArgs e)
         {
             Sql_Conn_frm newForm = new Sql_Conn_frm();
             newForm.ReadIni(sender, e);
-            newForm.Show();
         }
 
     }
