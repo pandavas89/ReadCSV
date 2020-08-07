@@ -179,7 +179,7 @@ namespace ReadCSV
             }
         }
 
-        private void DB_Add_btn_Click(object sender, EventArgs e)
+        private void T_USER_btn_Click(object sender, EventArgs e)
         {
             List<string> d_name = new List<string>();
             List< string > d_pno = new List<string>();
@@ -200,8 +200,36 @@ namespace ReadCSV
                 d_mf.Add(sex);
             }
             
-            sqlConn.AddData(d_name,  d_pno, d_mf);
+            sqlConn.Add_T_USER_Data(d_name,  d_pno, d_mf);
         }
+
+        //
+        private void T_M_USING_btn_Click(object sender, EventArgs e)
+        {
+            List<string> d_name = new List<string>();
+            List<string> d_pno = new List<string>();
+            List<string> d_sno = new List<string>();
+            string d_yyyy = comboYear.Text.ToString();
+            string d_mm = comboMonth.Text.ToString();
+
+            Sql_Conn sqlConn = new Sql_Conn();
+
+            int totalLines = userDataDGV.Rows.Count - 1;
+            for (int i = 0; i < totalLines; i++)
+            {
+                var targetRow = userDataDGV.Rows[i].Cells;
+                string name = targetRow[0].Value.ToString();
+                string pNo = targetRow[1].Value.ToString();
+                string sNo = targetRow[3].Value.ToString();
+
+                d_name.Add(name);
+                d_pno.Add(pNo);
+                d_sno.Add(sNo);
+            }
+
+            sqlConn.Add_T_M_USING_Data(d_yyyy, d_mm, d_pno, d_sno);
+        }
+
 
 
         private void SqlConn_btn_click(object sender, EventArgs e)

@@ -112,8 +112,8 @@ namespace ReadCSV
         }
 
 
-        // AddData
-        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+        // Add T_USER Data
+        public void Add_T_USER_Data(List<string> d_name, List<string> d_pno, List<string> d_mf) //
         {
             //
             // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
@@ -149,36 +149,31 @@ namespace ReadCSV
 
         }
 
-        /*
-       public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
-       {
-           //
-           // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
-           string queryString = " INSERT INTO T_USER";
-           queryString += " (NAME ";
-           queryString += " ,PNO ";
-           queryString += " ,MF) ";
-           queryString += " VALUES ";
 
-           for (int i = 0; i < d_name.Count; i++)
-           {
-               queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
-           }
+        // Add T_USER Data
+        public void Add_T_M_USING_Data(string d_yyyy, string d_mm, List<string> d_pno, List<string> d_sno) //
+        {
+            string queryString = "";
+            //for (int i = 0; i < d_name.Count; i++)
 
-           queryString = queryString.Substring(0, queryString.Length - 1);
+            for (int i = 0; i < d_pno.Count; i++)
+            {                
+                queryString += " INSERT INTO T_M_USING ";
+                queryString += " ( YYYY, MM, PNO, SNO, CNO ) ";
+                queryString += " VALUES ";
+                queryString += String.Format(" ('{0}','{1}','{2}','{3}','{4}') ", d_yyyy, d_mm, d_pno[i], d_sno[i], d_pno[i]);
+               
+            }
+            queryString = queryString.Substring(0, queryString.Length - 1);
 
-           MessageBox.Show(queryString);
+            MessageBox.Show(queryString);
 
-           *//*queryString += " ('" + PNOtext + "'";
-           queryString += " ,'" + NAMEtext + "'";
-           queryString += " ,'" + FMCB + "')";*//*
+            ECom(queryString);
 
+            MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
-           ECom(queryString);
+        }
 
-           MessageBox.Show("사용자 정보가 추가되었습니다.!");
-
-       }*/
 
     }
 }

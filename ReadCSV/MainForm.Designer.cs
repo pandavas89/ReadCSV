@@ -51,6 +51,9 @@
             this.extractBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.comboMonth = new System.Windows.Forms.ComboBox();
+            this.comboYear = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.csvDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.firstRowNUD)).BeginInit();
@@ -64,7 +67,7 @@
             // 
             this.findBtn.AutoSize = true;
             this.findBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.findBtn.Location = new System.Drawing.Point(12, 12);
+            this.findBtn.Location = new System.Drawing.Point(13, 7);
             this.findBtn.Name = "findBtn";
             this.findBtn.Size = new System.Drawing.Size(63, 22);
             this.findBtn.TabIndex = 0;
@@ -76,7 +79,7 @@
             // 
             this.parseBtn.AutoSize = true;
             this.parseBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.parseBtn.Location = new System.Drawing.Point(322, 12);
+            this.parseBtn.Location = new System.Drawing.Point(336, 7);
             this.parseBtn.Name = "parseBtn";
             this.parseBtn.Size = new System.Drawing.Size(75, 22);
             this.parseBtn.TabIndex = 0;
@@ -149,7 +152,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 17);
+            this.label1.Location = new System.Drawing.Point(82, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 12);
             this.label1.TabIndex = 5;
@@ -158,7 +161,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(189, 17);
+            this.label2.Location = new System.Drawing.Point(189, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 12);
             this.label2.TabIndex = 6;
@@ -166,21 +169,21 @@
             // 
             // firstRowNUD
             // 
-            this.firstRowNUD.Location = new System.Drawing.Point(144, 12);
+            this.firstRowNUD.Location = new System.Drawing.Point(145, 7);
             this.firstRowNUD.Name = "firstRowNUD";
             this.firstRowNUD.Size = new System.Drawing.Size(39, 21);
             this.firstRowNUD.TabIndex = 7;
             // 
             // lastRowNUD
             // 
-            this.lastRowNUD.Location = new System.Drawing.Point(252, 12);
+            this.lastRowNUD.Location = new System.Drawing.Point(252, 8);
             this.lastRowNUD.Name = "lastRowNUD";
             this.lastRowNUD.Size = new System.Drawing.Size(39, 21);
             this.lastRowNUD.TabIndex = 8;
             // 
             // colName
             // 
-            this.colName.Location = new System.Drawing.Point(506, 12);
+            this.colName.Location = new System.Drawing.Point(506, 8);
             this.colName.Name = "colName";
             this.colName.Size = new System.Drawing.Size(39, 21);
             this.colName.TabIndex = 10;
@@ -188,7 +191,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(415, 15);
+            this.label3.Location = new System.Drawing.Point(415, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 12);
             this.label3.TabIndex = 9;
@@ -196,7 +199,7 @@
             // 
             // colPNo
             // 
-            this.colPNo.Location = new System.Drawing.Point(675, 12);
+            this.colPNo.Location = new System.Drawing.Point(675, 8);
             this.colPNo.Name = "colPNo";
             this.colPNo.Size = new System.Drawing.Size(39, 21);
             this.colPNo.TabIndex = 12;
@@ -204,7 +207,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(560, 14);
+            this.label4.Location = new System.Drawing.Point(560, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 12);
             this.label4.TabIndex = 11;
@@ -212,7 +215,7 @@
             // 
             // colSeatAndSex
             // 
-            this.colSeatAndSex.Location = new System.Drawing.Point(865, 12);
+            this.colSeatAndSex.Location = new System.Drawing.Point(865, 8);
             this.colSeatAndSex.Name = "colSeatAndSex";
             this.colSeatAndSex.Size = new System.Drawing.Size(39, 21);
             this.colSeatAndSex.TabIndex = 14;
@@ -230,7 +233,7 @@
             // 
             this.extractBtn.AutoSize = true;
             this.extractBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.extractBtn.Location = new System.Drawing.Point(958, 9);
+            this.extractBtn.Location = new System.Drawing.Point(954, 6);
             this.extractBtn.Name = "extractBtn";
             this.extractBtn.Size = new System.Drawing.Size(79, 22);
             this.extractBtn.TabIndex = 15;
@@ -240,7 +243,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1404, 12);
+            this.button1.Location = new System.Drawing.Point(1404, 450);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 16;
@@ -250,19 +253,68 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1323, 11);
+            this.button2.Location = new System.Drawing.Point(1039, 7);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(94, 23);
             this.button2.TabIndex = 16;
-            this.button2.Text = "DB_Add";
+            this.button2.Text = "T_USER_ADD";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.DB_Add_btn_Click);
+            this.button2.Click += new System.EventHandler(this.T_USER_btn_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1372, 6);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(116, 23);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "T_M_USING_ADD";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.T_M_USING_btn_Click);
+            // 
+            // comboMonth
+            // 
+            this.comboMonth.FormattingEnabled = true;
+            this.comboMonth.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.comboMonth.Location = new System.Drawing.Point(1322, 8);
+            this.comboMonth.Name = "comboMonth";
+            this.comboMonth.Size = new System.Drawing.Size(44, 20);
+            this.comboMonth.TabIndex = 17;
+            // 
+            // comboYear
+            // 
+            this.comboYear.FormattingEnabled = true;
+            this.comboYear.Items.AddRange(new object[] {
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "2025"});
+            this.comboYear.Location = new System.Drawing.Point(1216, 8);
+            this.comboYear.Name = "comboYear";
+            this.comboYear.Size = new System.Drawing.Size(100, 20);
+            this.comboYear.TabIndex = 17;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1523, 483);
+            this.Controls.Add(this.comboYear);
+            this.Controls.Add(this.comboMonth);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.extractBtn);
@@ -320,6 +372,9 @@
         private System.Windows.Forms.Button extractBtn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox comboMonth;
+        private System.Windows.Forms.ComboBox comboYear;
     }
 }
 
