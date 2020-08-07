@@ -30,7 +30,7 @@ namespace ReadCSV
 
             //thisMonth = 올달;
             int thisMonth = int.Parse(DateTime.Now.ToString("MM"));
-            
+            thisMonth--;    // index 순서의 값이기 때문에 -1 감소 처리
             comboMonth.SelectedIndex = thisMonth;
         }
 
