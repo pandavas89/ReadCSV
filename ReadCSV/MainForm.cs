@@ -21,6 +21,17 @@ namespace ReadCSV
         public MainForm()
         {
             InitializeComponent();
+            //thisYear = 올해;            
+            int thisYear = int.Parse(DateTime.Now.ToString("yyyy"));
+            
+            comboYear.Items.Add(thisYear++);
+            comboYear.Items.Add(thisYear);
+            comboYear.SelectedIndex = 0;
+
+            //thisMonth = 올달;
+            int thisMonth = int.Parse(DateTime.Now.ToString("MM"));
+            
+            comboMonth.SelectedIndex = thisMonth;
         }
 
 
@@ -40,6 +51,7 @@ namespace ReadCSV
             string headerCheckText = String.Format("다음의 열이 헤더 칼럼으로 선택됩니다 : \n{0}", rawCsvTB.Lines[headerLines]);
             MessageBox.Show(headerCheckText);
             string footerTexts = "";
+
             for (int i = 0; i < footerLines; i++)
             {
                 footerTexts += rawCsvTB.Lines[totalLines - footerLines + i];

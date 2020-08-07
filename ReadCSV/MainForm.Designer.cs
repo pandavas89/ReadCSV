@@ -295,13 +295,6 @@
             // comboYear
             // 
             this.comboYear.FormattingEnabled = true;
-            this.comboYear.Items.AddRange(new object[] {
-            "2020",
-            "2021",
-            "2022",
-            "2023",
-            "2024",
-            "2025"});
             this.comboYear.Location = new System.Drawing.Point(1216, 8);
             this.comboYear.Name = "comboYear";
             this.comboYear.Size = new System.Drawing.Size(100, 20);
