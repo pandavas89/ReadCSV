@@ -21,14 +21,18 @@ namespace ReadCSV
             InitializeComponent();
         }
 
+        // text save
+        private Dictionary<string, string> configData = new Dictionary<string, string>();
+
         // Read
-        public void ReadIni()
-        {
+        public string ReadIni()
+        {            
+            string line;
             var curDir = Directory.GetCurrentDirectory();
-            Dictionary<string, string> configData = new Dictionary<string, string>();
+            
             using (System.IO.StreamReader file = new System.IO.StreamReader(curDir + "/sql_config.ini")) 
             {
-                string line;
+                
                 while ((line = file.ReadLine()) != null)
                 {
                     string[] data = line.Split(':');
@@ -41,42 +45,20 @@ namespace ReadCSV
             //textBox3.Text = configData["USER ID"];
             //textBox4.Text = configData["Password"];
 
-        }
-
-        public async Task CopyFilesAsync(StreamReader Source, StreamWriter Destinaion)
-        {
-            char[] buffer = new char[0x1000];
-            int numRead;
-            while ((numRead = await Source.ReadAsync(buffer, 0, buffer.Length)) != 0)
-            {
-                await Destinaion.WriteAsync(buffer, 0, numRead);
-            }
+            return line;
         }
 
         // Write
         private void save_btn_Click(object sender, EventArgs e)
         {
-
-            try
-            {
-                var curDir = Directory.GetCurrentDirectory();
-                System.IO.StreamWriter file = new System.IO.StreamWriter(curDir + "/sql_config.ini");
-                //string line;
-                Dictionary<string, string> configData = new Dictionary<string, string>();
-
-                configData.Add("Data Source", textBox1.Text.ToString());
-                configData.Add("Initial Catalog", textBox2.Text.ToString());
-                                
-                foreach ( var entry in configData)
+            var curDir = Directory.GetCurrentDirectory();
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(curDir + "/sql_config.ini")) //
                 {
-                    file.WriteLine("{0} : {1}", entry.Key, entry.Value);
-                }
+                file.WriteLine("{0} : {1}", "Data Source", textBox1.Text.ToString());
+                file.WriteLine("{0} : {1}", "Initial Catalog", textBox2.Text.ToString());
+                file.WriteLine("{0} : {1}", "USER ID", configData["USER ID"]);
+                file.WriteLine("{0} : {1}", "Password", configData["Password"]);
             }
-            catch (FileNotFoundException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
             this.Close();
         }
 

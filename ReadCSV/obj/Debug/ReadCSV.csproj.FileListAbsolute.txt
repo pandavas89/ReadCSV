@@ -17,6 +17,6 @@ C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csproj.Cor
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.exe
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.pdb
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csprojAssemblyReference.cache
-C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csprojAssemblyReference.cache
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.MainForm.resources
 C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.Sql_Conn_frm.resources
+C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csprojAssemblyReference.cache

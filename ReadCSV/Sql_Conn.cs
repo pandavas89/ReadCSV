@@ -16,13 +16,16 @@ namespace ReadCSV
         // SQL_DB User ID Password
         // textbox 입력으로 수정할 수 있도록 개선
         // 최종적으로는 MS SQL DB를 거치지 않고 바이오스타만으로 업데이트 처리 가능하도록
-        /*string strConn = "Data Source=192.168.0.4;Initial Catalog=STUDY_ROOM;"
+        /*string strConn = "Data Source=192.168.0.10;Initial Catalog=STUDY_ROOM;"
                             + "User ID=sa;Password=jack3081$$;";*/
 
-        string strConn = "";
+        //
+        //var Sql_Conn_frm = new Sql_Conn_frm();
+
+        private string strConn = "";
 
         SqlConnection Conn = new SqlConnection();
-
+           
         //
         public void SetConnection()
         {
@@ -36,33 +39,30 @@ namespace ReadCSV
                 string[] data = line.Split(':');
                 configData.Add(data[0].Trim(), data[1].Trim());
             }
-            strConn = "Data Source=" + configData["Data Source"] + ";";
-            strConn = "Initial Catalog=" + configData["Initial Catalog"] + ";";
-            strConn = "USER ID=" + configData["USER ID"] + ";";
-            strConn = "Password=" + configData["Password"] + ";";
+            strConn += "Data Source=" + configData["Data Source"] + "; ";
+            strConn += "Initial Catalog=" + configData["Initial Catalog"] + "; ";
+            strConn += "USER ID=" + configData["USER ID"] + "; ";
+            strConn += "Password=" + configData["Password"] + "; ";
         }
-
-
-
-
 
         //
         public void Open()
-        {
+        {            
             if (Conn.State == System.Data.ConnectionState.Closed)
             {
-
                 try
                 {
                     SetConnection();
+                    MessageBox.Show(strConn);
                     Conn.ConnectionString = strConn;
-                    Conn.Open();
+                    Conn.Open();//
                 }
                 catch (InvalidCastException e)
                 {
                     MessageBox.Show(e.Message, "DB Error!");
                 }
             }
+
         }
 
         //
@@ -112,26 +112,25 @@ namespace ReadCSV
         }
 
 
-        //
+        // AddData
         public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
         {
             //
             // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
-            //string queryString = " INSERT INTO T_USER";
-                       
             string queryString = "";
+            //for (int i = 0; i < d_name.Count; i++)
 
             for (int i = 0; i < d_name.Count; i++)
             {
-                queryString = " IF NOT EXISTS ( ";
-                queryString += " SELECT NAME, PNO, MF ";
+                queryString += " IF NOT EXISTS ( ";
+                queryString += " SELECT * ";
                 queryString += " FROM T_USER ";
-                queryString += String.Format(" WHERE PNO = '{0}' ", d_pno[i]);
+                queryString += String.Format(" WHERE PNO = '{0}') ", d_pno[i]);
+                queryString += " BEGIN ";
                 queryString += " INSERT INTO T_USER";
                 queryString += " ( NAME, PNO, MF ) ";
                 queryString += " VALUES ";
-                queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
-
+                queryString += String.Format(" ('{0}','{1}','{2}') ", d_name[i], d_pno[i], d_mf[i]);
                 queryString += " END ";
                 queryString += " ELSE ";
                 queryString += " BEGIN ";
@@ -140,8 +139,7 @@ namespace ReadCSV
                 queryString += String.Format(" WHERE PNO = '{0}'", d_pno[i]);
                 queryString += " END ";
             }
-
-            //queryString = queryString.Substring(0, queryString.Length - 1);
+            queryString = queryString.Substring(0, queryString.Length - 1);
 
             MessageBox.Show(queryString);
                       
@@ -151,7 +149,7 @@ namespace ReadCSV
 
         }
 
-        /* //
+        /*
        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
        {
            //
@@ -181,22 +179,6 @@ namespace ReadCSV
            MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
        }*/
-
-
-
-
-        //월별 데이터의 경우 지난달 사용자는 한 달을 늘리고 신규/중단 후 재사용자는 새로운 구간을 설정해 줄 것
-        // YYYY, MM, PNO, SNO, CNO
-        // 지난달 MM 사용자는 한 달 늘리고 / new 사용자는 1일로 시작
-
-        public void MonthRenewal()
-        {
-
-        }
-
-
-
-
 
     }
 }
