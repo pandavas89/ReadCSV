@@ -13,21 +13,20 @@ namespace ReadCSV
 {
     class Sql_Conn
     {
-
-       
-
         // SQL_DB User ID Password
         // textbox 입력으로 수정할 수 있도록 개선
         // 최종적으로는 MS SQL DB를 거치지 않고 바이오스타만으로 업데이트 처리 가능하도록
-        /*string strConn = "Data Source=192.168.0.4;Initial Catalog=STUDY_ROOM;"
+        /*string strConn = "Data Source=192.168.0.10;Initial Catalog=STUDY_ROOM;"
                             + "User ID=sa;Password=jack3081$$;";*/
 
-        string strConn = "";
+        //
+        //var Sql_Conn_frm = new Sql_Conn_frm();
+
+        private string strConn = "";
 
         SqlConnection Conn = new SqlConnection();
-
-
-
+           
+        //
         public void SetConnection()
         {
             var curDir = Directory.GetCurrentDirectory();
@@ -40,34 +39,30 @@ namespace ReadCSV
                 string[] data = line.Split(':');
                 configData.Add(data[0].Trim(), data[1].Trim());
             }
-            strConn = "Data Source=" + configData["Data Source"] + ";";
-            strConn = "Initial Catalog=" + configData["Initial Catalog"] + ";";
-            strConn = "USER ID=" + configData["USER ID"] + ";";
-            strConn = "Password" + configData["Password"] + ";";
+            strConn += "Data Source=" + configData["Data Source"] + "; ";
+            strConn += "Initial Catalog=" + configData["Initial Catalog"] + "; ";
+            strConn += "USER ID=" + configData["USER ID"] + "; ";
+            strConn += "Password=" + configData["Password"] + "; ";
         }
 
-
-
-
-
-
+        //
         public void Open()
-        {
-
+        {            
             if (Conn.State == System.Data.ConnectionState.Closed)
             {
-
                 try
                 {
                     SetConnection();
+                    MessageBox.Show(strConn);
                     Conn.ConnectionString = strConn;
-                    Conn.Open();
+                    Conn.Open();//
                 }
                 catch (InvalidCastException e)
                 {
                     MessageBox.Show(e.Message, "DB Error!");
                 }
             }
+
         }
 
         //
@@ -116,35 +111,69 @@ namespace ReadCSV
             return rint;
         }
 
-        //
-        public void AddData(List<string> d_name, List<string> d_pno, List<string> d_mf) //string[] f_name, string[] f_pno, string[] f_mf
+
+        // Add T_USER Data
+        public void Add_T_USER_Data(List<string> d_name, List<string> d_pno, List<string> d_mf) //
         {
             //
             // IF NOT EXISTS THEN INSERT INTO ~ ELSE UPDATE
-            string queryString = " INSERT INTO T_USER";
-            queryString += " (NAME ";
-            queryString += " ,PNO ";
-            queryString += " ,MF) ";
-            queryString += " VALUES ";
+            string queryString = "";
+            //for (int i = 0; i < d_name.Count; i++)
 
             for (int i = 0; i < d_name.Count; i++)
             {
-                queryString += String.Format(" ('" + "{0}" + "','" + "{1}" + "','" + "{2}" + "'),", d_name[i], d_pno[i], d_mf[i]);
+                queryString += " IF NOT EXISTS ( ";
+                queryString += " SELECT * ";
+                queryString += " FROM T_USER ";
+                queryString += String.Format(" WHERE PNO = '{0}') ", d_pno[i]);
+                queryString += " BEGIN ";
+                queryString += " INSERT INTO T_USER";
+                queryString += " ( NAME, PNO, MF ) ";
+                queryString += " VALUES ";
+                queryString += String.Format(" ('{0}','{1}','{2}') ", d_name[i], d_pno[i], d_mf[i]);
+                queryString += " END ";
+                queryString += " ELSE ";
+                queryString += " BEGIN ";
+                queryString += " UPDATE T_USER ";
+                queryString += String.Format(" SET NAME = '{0}', PNO = '{1}', MF = '{2}'", d_name[i], d_pno[i], d_mf[i]);
+                queryString += String.Format(" WHERE PNO = '{0}'", d_pno[i]);
+                queryString += " END ";
             }
-
             queryString = queryString.Substring(0, queryString.Length - 1);
 
             MessageBox.Show(queryString);
+                      
+            ECom(queryString);
 
-            /*queryString += " ('" + PNOtext + "'";
-            queryString += " ,'" + NAMEtext + "'";
-            queryString += " ,'" + FMCB + "')";*/
+            MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
+        }
+
+
+        // Add T_USER Data
+        public void Add_T_M_USING_Data(string d_yyyy, string d_mm, List<string> d_pno, List<string> d_sno) //
+        {
+            string queryString = "";
+            //for (int i = 0; i < d_name.Count; i++)
+
+            for (int i = 0; i < d_pno.Count; i++)
+            {                
+                queryString += " INSERT INTO T_M_USING ";
+                queryString += " ( YYYY, MM, PNO, SNO, CNO ) ";
+                queryString += " VALUES ";
+                queryString += String.Format(" ('{0}','{1}','{2}','{3}','{4}') ", d_yyyy, d_mm, d_pno[i], d_sno[i], d_pno[i]);
+               
+            }
+            queryString = queryString.Substring(0, queryString.Length - 1);
+
+            MessageBox.Show(queryString);
 
             ECom(queryString);
 
             MessageBox.Show("사용자 정보가 추가되었습니다.!");
 
         }
+
+
     }
 }

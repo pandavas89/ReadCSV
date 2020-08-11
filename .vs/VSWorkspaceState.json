@@ -2,9 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\ReadCSV",
-    "\\ReadCSV\\bin",
-    "\\ReadCSV\\obj\\Debug"
+    "\\ReadCSV\\bin"
   ],
-  "SelectedNode": "\\ReadCSV\\ReadCSV.sln",
   "PreviewInSolutionExplorer": false
 }

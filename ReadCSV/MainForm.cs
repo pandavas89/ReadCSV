@@ -13,14 +13,43 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Net;
+using System.Threading;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace ReadCSV
 {
     public partial class MainForm : Form
     {
+        public static bool entrance = false;
+        static HttpListener _httpListener = new HttpListener(); // 웹 제어용 httpListener 선언
+        Thread _responseThread = new Thread(ResponseThread); // 웹 제어용 responseThread 선언 
+        static bool threadControl = true;
+
+        BiostarModule BM = new BiostarModule();
+
+
         public MainForm()
         {
             InitializeComponent();
+            //thisYear = 올해;            
+            int thisYear = int.Parse(DateTime.Now.ToString("yyyy"));
+            
+            comboYear.Items.Add(thisYear++);
+            comboYear.Items.Add(thisYear);
+            comboYear.SelectedIndex = 0;
+
+            //thisMonth = 올달;
+            int thisMonth = int.Parse(DateTime.Now.ToString("MM"));
+            thisMonth--;    // index 순서의 값이기 때문에 -1 감소 처리
+            comboMonth.SelectedIndex = thisMonth;
+
+
+            _httpListener.Start();// httpListener 시작
+            _responseThread.Start();// responseThread 시작
         }
 
 
@@ -40,6 +69,7 @@ namespace ReadCSV
             string headerCheckText = String.Format("다음의 열이 헤더 칼럼으로 선택됩니다 : \n{0}", rawCsvTB.Lines[headerLines]);
             MessageBox.Show(headerCheckText);
             string footerTexts = "";
+
             for (int i = 0; i < footerLines; i++)
             {
                 footerTexts += rawCsvTB.Lines[totalLines - footerLines + i];
@@ -179,12 +209,147 @@ namespace ReadCSV
             }
         }
 
+        private void T_USER_btn_Click(object sender, EventArgs e)
+        {
+            List<string> d_name = new List<string>();
+            List< string > d_pno = new List<string>();
+            List<string> d_mf = new List<string>();
+
+            Sql_Conn sqlConn = new Sql_Conn();
+
+            int totalLines = userDataDGV.Rows.Count - 1;
+            for (int i = 0; i < totalLines; i++)
+            {
+                var targetRow = userDataDGV.Rows[i].Cells;
+                string name = targetRow[0].Value.ToString();
+                string pNo = targetRow[1].Value.ToString();
+                string sex = targetRow[2].Value.ToString();
+
+                d_name.Add(name);
+                d_pno.Add(pNo);
+                d_mf.Add(sex);
+            }
+            
+            sqlConn.Add_T_USER_Data(d_name,  d_pno, d_mf);
+        }
+
+        //
+        private void T_M_USING_btn_Click(object sender, EventArgs e)
+        {
+            List<string> d_name = new List<string>();
+            List<string> d_pno = new List<string>();
+            List<string> d_sno = new List<string>();
+            string d_yyyy = comboYear.Text.ToString();
+            string d_mm = comboMonth.Text.ToString();
+
+            Sql_Conn sqlConn = new Sql_Conn();
+
+            int totalLines = userDataDGV.Rows.Count - 1;
+            for (int i = 0; i < totalLines; i++)
+            {
+                var targetRow = userDataDGV.Rows[i].Cells;
+                string name = targetRow[0].Value.ToString();
+                string pNo = targetRow[1].Value.ToString();
+                string sNo = targetRow[3].Value.ToString();
+
+                d_name.Add(name);
+                d_pno.Add(pNo);
+                d_sno.Add(sNo);
+            }
+
+            sqlConn.Add_T_M_USING_Data(d_yyyy, d_mm, d_pno, d_sno);
+        }
+
+
 
         private void SqlConn_btn_click(object sender, EventArgs e)
         {
             Sql_Conn_frm newForm = new Sql_Conn_frm();
-            newForm.ReadIni(sender, e);
+            newForm.ReadIni();
             newForm.Show();
+        }
+
+
+        static async void ResponseThread() // 웹 제어용 Response Thread
+        {
+            while (threadControl)
+            {
+                try
+                {
+                    HttpListenerContext context = _httpListener.GetContext();
+                    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    context.Response.Headers.Add("Access-Control-Allow-Methods", "POST, GET");
+                    byte[] _responseArray = Encoding.UTF8.GetBytes("");
+
+                    if (context.Request.HttpMethod == "POST")   // POST 신호를 받았을 때 (POST)
+                    {
+                        var body = new StreamReader(context.Request.InputStream).ReadToEnd();
+                        JObject jsonBody = (JObject)JsonConvert.DeserializeObject(body);
+
+                        if (jsonBody.SelectToken("pw").ToString() == "seven7757")   // pw가 일치할 때
+                        {
+                            var command = context.Request.RawUrl.ToString().Split('/');
+                            if (command[1] == "api")    // api request 일 때
+                            {
+                                BiostarModule bs = new BiostarModule();
+                                if (command[2] == "users") // users request 일 때
+                                {
+                                    string userID = jsonBody.SelectToken("user_id").ToString();
+                                    string startTime = jsonBody.SelectToken("s_time").ToString();
+                                    string endTime = jsonBody.SelectToken("e_time").ToString();
+                                    await bs.BSRegisterUser(userID, startTime, endTime);
+                                    _responseArray = Encoding.UTF8.GetBytes("ok");
+                                    context.Response.OutputStream.Write(_responseArray, 0, _responseArray.Length);
+                                    context.Response.KeepAlive = false;
+                                    context.Response.Close();
+                                }
+                                
+                            }
+                        }
+                        _responseArray = Encoding.UTF8.GetBytes("ok");
+                        context.Response.OutputStream.Write(_responseArray, 0, _responseArray.Length);
+                        context.Response.KeepAlive = false;
+                        context.Response.Close();
+                    }
+                    else if (context.Request.HttpMethod == "GET")   // GET 요청을 받았을 때
+                    {
+                        JObject jsonBody = (JObject)JsonConvert.DeserializeObject(new StreamReader(context.Request.InputStream).ReadToEnd());
+                        var command = context.Request.RawUrl.ToString().Split('/');
+                        if (command[1] == "api")    // api request 일 때
+                        {
+                            if (command[2] == "doors")  // doors request 일 때
+                            {
+                                if (entrance) 
+                                {
+                                    _responseArray = Encoding.UTF8.GetBytes("T"); 
+                                }
+                                else 
+                                {
+                                    _responseArray = Encoding.UTF8.GetBytes("F");
+                                }
+                                context.Response.OutputStream.Write(_responseArray, 0, _responseArray.Length);
+                                context.Response.KeepAlive = false;
+                                context.Response.Close();
+                            }
+                            
+                        }
+
+                    }
+                }
+                catch { }
+            }
+        }
+        //
+
+
+        private async void BiostarCall(string userID)
+        {
+            HttpClient httpClient = new HttpClient();
+            BM.BSLogin();
+            var getRequest = BM.createRequest("GET", "https://127.0.0.1/api/user" + userID);
+            var getResponse = await httpClient.SendAsync(getRequest);
+
+
         }
 
     }
