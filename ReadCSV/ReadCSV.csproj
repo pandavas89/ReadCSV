@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BiostarModule.cs" />
+    <Compile Include="Biostar_Single.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biostar_Single.Designer.cs">
+      <DependentUpon>Biostar_Single.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="Sql_Conn_frm.Designer.cs">
       <DependentUpon>Sql_Conn_frm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Biostar_Single.resx">
+      <DependentUpon>Biostar_Single.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

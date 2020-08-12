@@ -54,6 +54,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.comboMonth = new System.Windows.Forms.ComboBox();
             this.comboYear = new System.Windows.Forms.ComboBox();
+            this.Biostar_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.csvDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDataDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.firstRowNUD)).BeginInit();
@@ -243,7 +244,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1404, 450);
+            this.button1.Location = new System.Drawing.Point(1039, 450);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 16;
@@ -300,11 +301,22 @@
             this.comboYear.Size = new System.Drawing.Size(100, 20);
             this.comboYear.TabIndex = 17;
             // 
+            // Biostar_btn
+            // 
+            this.Biostar_btn.Location = new System.Drawing.Point(1389, 450);
+            this.Biostar_btn.Name = "Biostar_btn";
+            this.Biostar_btn.Size = new System.Drawing.Size(83, 23);
+            this.Biostar_btn.TabIndex = 18;
+            this.Biostar_btn.Text = "BiostarTest";
+            this.Biostar_btn.UseVisualStyleBackColor = true;
+            this.Biostar_btn.Click += new System.EventHandler(this.BiostarTest_btn);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1523, 483);
+            this.Controls.Add(this.Biostar_btn);
             this.Controls.Add(this.comboYear);
             this.Controls.Add(this.comboMonth);
             this.Controls.Add(this.button3);
@@ -368,6 +380,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboMonth;
         private System.Windows.Forms.ComboBox comboYear;
+        private System.Windows.Forms.Button Biostar_btn;
     }
 }
 
