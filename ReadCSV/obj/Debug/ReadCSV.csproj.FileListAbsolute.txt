@@ -27,3 +27,4 @@ C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\bin\Debug\Newtonsoft.Json.dl
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\bin\Debug\Newtonsoft.Json.xml
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.Biostar_Single.resources
 C:\Users\mindc\Source\Repos\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.csproj.CopyComplete
+C:\Users\POWER-PC\Documents\Git\nazgyul\ReadCSV\ReadCSV\obj\Debug\ReadCSV.Biostar_Single.resources

@@ -25,6 +25,11 @@ namespace ReadCSV
 
         public static HttpClient httpClient = new HttpClient();
 
+        public static HttpClient returnHttp(HttpClient httpClient) 
+        {
+            return httpClient;
+        }
+
         public async Task BSLogin() // Biostar2 api 로그인
         {
             var handler = new HttpClientHandler();

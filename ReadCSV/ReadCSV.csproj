@@ -49,6 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BiostarGet.cs" />
+    <Compile Include="BiostarGets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BiostarGets.Designer.cs">
+      <DependentUpon>BiostarGets.cs</DependentUpon>
+    </Compile>
     <Compile Include="BiostarModule.cs" />
     <Compile Include="Biostar_Single.cs">
       <SubType>Form</SubType>

@@ -340,17 +340,25 @@ namespace ReadCSV
             }
         }
         //
-        private void BiostarTest_btn(object sender, EventArgs e)
+        private async void BiostarTest_btn(object sender, EventArgs e)
         {
-            Biostar_Single bs = new Biostar_Single();
-            bs.Show();
+
+            string userID = "39170412";
+            
+            var hc = BM.BSLogin();
+            var getRequest = BM.createRequest("GET", "https://127.0.0.1/api/user/" + userID);
+            hc.
+            var getResponse = await httpClient.SendAsync(getRequest);
+
+            /*Biostar_Single bs = new Biostar_Single();
+            bs.Show();*/
         }
 
         private async void BiostarCall(string userID)
         {
             HttpClient httpClient = new HttpClient();
             BM.BSLogin();
-            var getRequest = BM.createRequest("GET", "https://127.0.0.1/api/user" + userID);
+            var getRequest = BM.createRequest("GET", "https://127.0.0.1/api/user/" + userID);
             var getResponse = await httpClient.SendAsync(getRequest);
 
 
