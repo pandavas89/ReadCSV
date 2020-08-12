@@ -340,7 +340,11 @@ namespace ReadCSV
             }
         }
         //
-
+        private void BiostarTest_btn(object sender, EventArgs e)
+        {
+            Biostar_Single bs = new Biostar_Single();
+            bs.Show();
+        }
 
         private async void BiostarCall(string userID)
         {
